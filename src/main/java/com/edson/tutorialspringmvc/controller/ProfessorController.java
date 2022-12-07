@@ -7,8 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.edson.tutorialspringmvc.Professor;
-import com.edson.tutorialspringmvc.ProfessorRepository;
+import com.edson.tutorialspringmvc.model.Professor;
+import com.edson.tutorialspringmvc.model.StatusProfessor;
+import com.edson.tutorialspringmvc.repository.ProfessorRepository;
 
 @Controller
 public class ProfessorController {
@@ -24,8 +25,11 @@ public class ProfessorController {
 		return mv;
 	}
 
-	@GetMapping("/professores/new")
-	public String newProfessor() {
-		return "professores/new";
+	@GetMapping("professores/new")
+	public ModelAndView nnew() {
+		ModelAndView mv = new ModelAndView("professores/new");
+		mv.addObject("listaStatusProfessor", StatusProfessor.values());
+
+		return mv;
 	}
 }
