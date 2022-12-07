@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import com.edson.tutorialspringmvc.model.StatusProfessor;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
