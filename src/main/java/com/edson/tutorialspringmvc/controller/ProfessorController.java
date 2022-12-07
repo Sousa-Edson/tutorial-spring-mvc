@@ -17,10 +17,15 @@ public class ProfessorController {
 
 	@GetMapping("/professores")
 	public ModelAndView index() {
-	 
-		List<Professor> professores =  this.professorRepository.findAll();
+
+		List<Professor> professores = this.professorRepository.findAll();
 		ModelAndView mv = new ModelAndView("professores/index");
 		mv.addObject("professores", professores);
 		return mv;
+	}
+
+	@GetMapping("/professores/new")
+	public String newProfessor() {
+		return "professores/new";
 	}
 }
