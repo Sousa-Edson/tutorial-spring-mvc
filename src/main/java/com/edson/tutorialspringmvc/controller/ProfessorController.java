@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.edson.tutorialspringmvc.model.Professor;
@@ -18,7 +19,6 @@ public class ProfessorController {
 
 	@GetMapping("/professores")
 	public ModelAndView index() {
-
 		List<Professor> professores = this.professorRepository.findAll();
 		ModelAndView mv = new ModelAndView("professores/index");
 		mv.addObject("professores", professores);
@@ -29,7 +29,11 @@ public class ProfessorController {
 	public ModelAndView nnew() {
 		ModelAndView mv = new ModelAndView("professores/new");
 		mv.addObject("listaStatusProfessor", StatusProfessor.values());
-
 		return mv;
+	}
+	@PostMapping("/professores")
+	public String create(Professor professor) {
+
+		return "redirect:/professores";
 	}
 }
