@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.edson.tutorialspringmvc.dto.RequisicaoNovoProfessor;
 import com.edson.tutorialspringmvc.model.Professor;
 import com.edson.tutorialspringmvc.model.StatusProfessor;
 import com.edson.tutorialspringmvc.repository.ProfessorRepository;
@@ -31,9 +32,11 @@ public class ProfessorController {
 		mv.addObject("listaStatusProfessor", StatusProfessor.values());
 		return mv;
 	}
-	@PostMapping("/professores")
-	public String create(Professor professor) {
 
+	@PostMapping("/professores")
+	public String create(RequisicaoNovoProfessor requisicao) {
+		Professor professor = requisicao.toProfessor();
+		this.professorRepository.save(professor);
 		return "redirect:/professores";
 	}
 }
