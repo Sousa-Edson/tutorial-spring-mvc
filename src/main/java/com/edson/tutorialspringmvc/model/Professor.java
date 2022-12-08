@@ -63,4 +63,10 @@ public class Professor {
 		this.statusProfessor = statusProfessor;
 	}
 
+	@Override
+	public String toString() {
+		return "Professor [id=" + id + ", nome=" + nome + ", salario=" + salario + ", statusProfessor="
+				+ statusProfessor + "]";
+	}
+
 }
