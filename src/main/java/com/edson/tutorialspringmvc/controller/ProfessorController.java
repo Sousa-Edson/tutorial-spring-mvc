@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,6 +13,8 @@ import com.edson.tutorialspringmvc.dto.RequisicaoNovoProfessor;
 import com.edson.tutorialspringmvc.model.Professor;
 import com.edson.tutorialspringmvc.model.StatusProfessor;
 import com.edson.tutorialspringmvc.repository.ProfessorRepository;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class ProfessorController {
@@ -34,9 +37,15 @@ public class ProfessorController {
 	}
 
 	@PostMapping("/professores")
-	public String create(RequisicaoNovoProfessor requisicao) {
-		Professor professor = requisicao.toProfessor();
-		this.professorRepository.save(professor);
-		return "redirect:/professores";
+	public String create(@Valid RequisicaoNovoProfessor requisicao, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			Professor professor = requisicao.toProfessor();
+		System.out.println("\n************************TEM ERROS**********************\n");
+			return "redirect:/professores/new";
+		} else {
+			Professor professor = requisicao.toProfessor();
+			this.professorRepository.save(professor);
+			return "redirect:/professores";
+		}
 	}
 }
