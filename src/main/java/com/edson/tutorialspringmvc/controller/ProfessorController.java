@@ -30,22 +30,25 @@ public class ProfessorController {
 	}
 
 	@GetMapping("professores/new")
-	public ModelAndView nnew() {
+	public ModelAndView nnew(RequisicaoNovoProfessor requisicao) {
 		ModelAndView mv = new ModelAndView("professores/new");
 		mv.addObject("listaStatusProfessor", StatusProfessor.values());
 		return mv;
 	}
 
 	@PostMapping("/professores")
-	public String create(@Valid RequisicaoNovoProfessor requisicao, BindingResult bindingResult) {
+	public ModelAndView create(@Valid RequisicaoNovoProfessor requisicao, BindingResult bindingResult) {
+		  System.out.println(requisicao);
 		if (bindingResult.hasErrors()) {
-			Professor professor = requisicao.toProfessor();
-		System.out.println("\n************************TEM ERROS**********************\n");
-			return "redirect:/professores/new";
+			System.out.println("\n************************TEM ERROS**********************\n");
+			ModelAndView mv = new ModelAndView("professores/new");
+			
+			mv.addObject("listaStatusProfessor", StatusProfessor.values());
+			return mv;
 		} else {
 			Professor professor = requisicao.toProfessor();
 			this.professorRepository.save(professor);
-			return "redirect:/professores";
+			return new ModelAndView("redirect:/professores");
 		}
 	}
 }
