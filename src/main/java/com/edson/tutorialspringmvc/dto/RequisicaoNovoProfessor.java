@@ -14,7 +14,7 @@ public class RequisicaoNovoProfessor {
 	@NotNull
 	private String nome;
 	@NotNull
-	@DecimalMin(value = "0.0" )
+	@DecimalMin("0.0")
 	private BigDecimal salario;
 	private StatusProfessor statusProfessor;
 
@@ -48,6 +48,19 @@ public class RequisicaoNovoProfessor {
 		professor.setSalario(this.salario);
 		professor.setStatusProfessor(this.statusProfessor);
 		return professor;
+	}
+
+	public Professor toProfessor(Professor professor) {
+		professor.setNome(this.nome);
+		professor.setSalario(this.salario);
+		professor.setStatusProfessor(this.statusProfessor);
+		return professor;
+	}
+
+	public void fromProfessor(Professor professor) {
+		this.nome = professor.getNome();
+		this.salario = professor.getSalario();
+		this.statusProfessor = professor.getStatusProfessor();
 	}
 
 	@Override
