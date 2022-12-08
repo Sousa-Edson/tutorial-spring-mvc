@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,29 +19,27 @@
 	<div class="container">
 		<h1>Novo professor</h1>
 		<div class="row">
-			<form action="/professores" method="POST">
+			<form th:object="${requisicaoNovoProfessor}" action="/professores"
+				method="POST">
 				<div class="mb-3">
-					<label class="form-label">Nome</label> <input class="form-control"
-						type="text" name="nome">
+					<label class="form-label">Nome</label> <input th:field="*{nome}"
+						class="form-control" th:errorclass=" is-invalid" type="text">
+					<div class="invalid-feedback" th:errors="*{nome}"></div>
 				</div>
 				<div class="mb-3">
 					<label class="form-label">Salario</label> <input
-						class="form-control" type="text" name="salario">
+						th:field="*{salario}" class="form-control"
+						th:errorclass=" is-invalid" type="text">
+					<div class="invalid-feedback" th:errors="*{salario}"></div>
 				</div>
 				<div class="mb-3">
-					<label class="form-label">Status</label> 
-					<!-- <select
-						class="form-select"  >
-						<option th:each="status : ${T(com.edson.tutorialspringmvc.model.StatusProfessor).values()}"
-							th:value="${status}" th:text="${status}"></option>
-					</select>  -->
-					
-					 <select
-						class="form-select" name="statusProfessor">
+					<label class="form-label">Status</label> <select
+						class="form-select" th:field="*{statusProfessor}"
+						name="statusProfessor">
 						<option th:each="status : ${listaStatusProfessor}"
 							th:value="${status}" th:text="${status}"></option>
 					</select>
-					 
+
 				</div>
 				<button type="submit" class="btn btn-primary">Submeter</button>
 				<a href="/professores" class="btn btn-secondary">Voltar</a>
