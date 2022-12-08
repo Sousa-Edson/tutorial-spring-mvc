@@ -5,8 +5,16 @@ import java.math.BigDecimal;
 import com.edson.tutorialspringmvc.model.Professor;
 import com.edson.tutorialspringmvc.model.StatusProfessor;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class RequisicaoNovoProfessor {
+	@NotBlank
+	@NotNull
 	private String nome;
+	@NotNull
+	@DecimalMin(value = "0.0" )
 	private BigDecimal salario;
 	private StatusProfessor statusProfessor;
 
