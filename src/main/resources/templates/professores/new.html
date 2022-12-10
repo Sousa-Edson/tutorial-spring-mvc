@@ -1,10 +1,11 @@
 <!DOCTYPE html >
-<html lang="pt-br"  >
+<html lang="pt-br">
 
 <head th:replace="~{fragmentos :: head('Novo Professor')}"></head>
 <body>
+	<header
+		th:replace="~{fragmentos :: header('Lista de Professores','professores')}"></header>
 	<div class="container">
-		<h1>Novo professor</h1>
 		<div class="row">
 			<form th:object="${requisicaoNovoProfessor}" action="/professores"
 				method="POST">
