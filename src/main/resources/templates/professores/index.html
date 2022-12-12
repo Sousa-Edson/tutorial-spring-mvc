@@ -27,7 +27,7 @@
 						<td th:text="${professor.nome}">Edson</td>
 						<td th:text="${professor.salario}">10.00</td>
 						<td th:text="${professor.statusProfessor.toString()}">Otto</td>
-						<td><a href="#">Detalhe</a></td>
+						<td><a th:href="@{/professores/{professorId}(professorId = ${professor.id})}">Detalhe</a></td>
 						<td><a href="#">Editar</a></td>
 						<td><a href="#">Deletar</a></td>
 					</tr>
