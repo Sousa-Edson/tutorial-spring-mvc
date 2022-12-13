@@ -5,7 +5,9 @@
 <body>
 	<header
 		th:replace="~{fragmentos :: header('Editar Professor #'+${professorId},'professores')}"></header>
-	
+	<div class="container" th:replace="~{professores/fragmentos :: form(requisicaoFormProfessor,'/professores/'+${professorId})}">
+		 formulario
+	</div>
 
 	<!-- Option 1: Bootstrap Bundle with Popper -->
 	<script
