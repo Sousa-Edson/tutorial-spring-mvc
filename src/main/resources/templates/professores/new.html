@@ -4,10 +4,10 @@
 <head th:replace="~{fragmentos :: head('Novo Professor')}"></head>
 <body>
 	<header
-		th:replace="~{fragmentos :: header('Lista de Professores','professores')}"></header>
+		th:replace="~{fragmentos :: header('Novo Professor','professores')}"></header>
 	<div class="container">
 		<div class="row">
-			<form th:object="${requisicaoNovoProfessor}" action="/professores"
+			<form th:object="${requisicaoFormProfessor}" action="/professores"
 				method="POST">
 				<div class="mb-3">
 					<label class="form-label">Nome</label> <input th:field="*{nome}"
