@@ -9,9 +9,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.edson.tutorialspringmvc.dto.RequisicaoNovoProfessor;
+import com.edson.tutorialspringmvc.dto.RequisicaoFormProfessor;
 import com.edson.tutorialspringmvc.model.Professor;
 import com.edson.tutorialspringmvc.model.StatusProfessor;
 import com.edson.tutorialspringmvc.repository.ProfessorRepository;
@@ -19,11 +20,12 @@ import com.edson.tutorialspringmvc.repository.ProfessorRepository;
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping(value = "/professores")
 public class ProfessorController {
 	@Autowired
 	private ProfessorRepository professorRepository;
 
-	@GetMapping("/professores")
+	@GetMapping("")
 	public ModelAndView index() {
 		List<Professor> professores = this.professorRepository.findAll();
 		ModelAndView mv = new ModelAndView("professores/index");
@@ -31,15 +33,15 @@ public class ProfessorController {
 		return mv;
 	}
 
-	@GetMapping("professores/new")
-	public ModelAndView nnew(RequisicaoNovoProfessor requisicao) {
+	@GetMapping("/new")
+	public ModelAndView nnew(RequisicaoFormProfessor requisicao) {
 		ModelAndView mv = new ModelAndView("professores/new");
 		mv.addObject("listaStatusProfessor", StatusProfessor.values());
 		return mv;
 	}
 
-	@PostMapping("/professores")
-	public ModelAndView create(@Valid RequisicaoNovoProfessor requisicao, BindingResult bindingResult) {
+	@PostMapping("")
+	public ModelAndView create(@Valid RequisicaoFormProfessor requisicao, BindingResult bindingResult) {
 		System.out.println(requisicao);
 		if (bindingResult.hasErrors()) {
 			System.out.println("\n************************TEM ERROS**********************\n");
@@ -50,11 +52,11 @@ public class ProfessorController {
 		} else {
 			Professor professor = requisicao.toProfessor();
 			this.professorRepository.save(professor);
-			return new ModelAndView("redirect:/professores/"+professor.getId());
+			return new ModelAndView("redirect:/professores/" + professor.getId());
 		}
 	}
 
-	@GetMapping("/professores/{id}")
+	@GetMapping("/{id}")
 	public ModelAndView show(@PathVariable Long id) {
 		System.out.println("**** ID: " + id);
 		Optional<Professor> optional = this.professorRepository.findById(id);
@@ -67,5 +69,23 @@ public class ProfessorController {
 			System.out.println("$$$$$$$$$$$ Não achou o professor");
 			return new ModelAndView("redirect:/professores");
 		}
+	}
+
+	@GetMapping("/{id}/edit")
+	public ModelAndView edit(@PathVariable Long id, RequisicaoFormProfessor requisicao) {
+		Optional<Professor> optional = this.professorRepository.findById(id);
+
+		if (optional.isPresent()) {
+			Professor professor = optional.get();
+			requisicao.fromProfessor(professor);
+			ModelAndView mv = new ModelAndView("professores/edit");
+			mv.addObject("listaStatusProfessor", StatusProfessor.values());
+			mv.addObject("professorId",professor.getId());
+			return mv;
+		} else {
+			System.out.println("$$$$$$$$$$$ Não achou o professor");
+			return new ModelAndView("redirect:/professores");
+		}
+
 	}
 }
