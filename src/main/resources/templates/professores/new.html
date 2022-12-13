@@ -5,34 +5,8 @@
 <body>
 	<header
 		th:replace="~{fragmentos :: header('Novo Professor','professores')}"></header>
-	<div class="container">
-		<div class="row">
-			<form th:object="${requisicaoFormProfessor}" action="/professores"
-				method="POST">
-				<div class="mb-3">
-					<label class="form-label">Nome</label> <input th:field="*{nome}"
-						class="form-control" th:errorclass=" is-invalid" type="text">
-					<div class="invalid-feedback" th:errors="*{nome}"></div>
-				</div>
-				<div class="mb-3">
-					<label class="form-label">Salario</label> <input
-						th:field="*{salario}" class="form-control"
-						th:errorclass=" is-invalid" type="text">
-					<div class="invalid-feedback" th:errors="*{salario}"></div>
-				</div>
-				<div class="mb-3">
-					<label class="form-label">Status</label> <select
-						class="form-select" th:field="*{statusProfessor}"
-						name="statusProfessor">
-						<option th:each="status : ${listaStatusProfessor}"
-							th:value="${status}" th:text="${status}"></option>
-					</select>
-
-				</div>
-				<button type="submit" class="btn btn-primary">Submeter</button>
-				<a href="/professores" class="btn btn-secondary">Voltar</a>
-			</form>
-		</div>
+	<div class="container" th:replace="~{professores/fragmentos :: form(requisicaoFormProfessor,'/professores')}">
+		 formulario
 	</div>
 
 	<!-- Option 1: Bootstrap Bundle with Popper -->
